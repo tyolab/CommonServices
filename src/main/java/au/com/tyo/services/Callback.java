@@ -48,7 +48,7 @@ public class Callback {
 	}
 	
 	public Callback(String path) {
-		this("https", "localhost", -1);
+		this();
 		this.path = path;
 	}
 	
@@ -62,6 +62,10 @@ public class Callback {
 		this.port = port;
 		this.setPath(path);
 	}
+
+    public Callback(String scheme, String host, String path) {
+        this(scheme, host, -1, path);
+    }
 	
 	public static Callback getDefaultCallback() {
 		return callback;
@@ -76,7 +80,7 @@ public class Callback {
 	}
 
 	public String getUrl() {
-		return scheme + "://" + host + (port > -1 ? (":" + String.valueOf(port)) : "") + "/" + path;
+		return getHomeUrl() + path;
 	}
 	
 	@Override
@@ -115,5 +119,9 @@ public class Callback {
 			return parameters.get(query);
 
 		return null;
+	}
+
+	public String getHomeUrl() {
+		return scheme + "://" + host + (port > -1 ? (":" + String.valueOf(port)) : "") + "/";
 	}
 }

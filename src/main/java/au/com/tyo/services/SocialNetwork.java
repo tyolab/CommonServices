@@ -93,10 +93,15 @@ public class SocialNetwork implements SocialNetworkConstants {
 	}
 
 	public SNBase getSocialNetwork(int type) {
-		return sns.get(type);
+		SNBase sn = sns.get(type);
+		return sn;
 	}
 
 	public static SNBase createSocialNetwork(int type) {
+		return createSocialNetwork(type, Callback.getDefaultCallback());
+	}
+
+	public static SNBase createSocialNetwork(int type, Callback defaultCallback) {
 		/*
 		 * TODO
 		 *   create other network classes
@@ -119,6 +124,7 @@ public class SocialNetwork implements SocialNetworkConstants {
 		default:
 				break;
 		}
+		sn.setCallback(defaultCallback);
 		return sn;
 	}
 
