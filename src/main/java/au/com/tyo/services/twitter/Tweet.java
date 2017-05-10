@@ -34,7 +34,9 @@ public class Tweet implements Status {
 	
 	private String prefix;
 	
-	protected static String signature;
+	protected String hashtags;
+
+    protected String at;
 	
 	private String url;
 	
@@ -44,10 +46,6 @@ public class Tweet implements Status {
 	
 	private ArrayList<Long> mediaIds;
 	
-	static {
-		setSignature("");
-	}
-	
 	public Tweet() {
 		buffer = new StringBuffer();
 		limit = CHARACTER_LIMIT;
@@ -55,6 +53,8 @@ public class Tweet implements Status {
 		prefix = "";
 		url = "";
 		mediaIds = new ArrayList<Long>();
+        hashtags = null;
+        at = null;
 	}
 	
 	public Tweet(String text) {
@@ -150,20 +150,45 @@ public class Tweet implements Status {
 		this.prefix = prefix;
 	}
 
-	public static String getSignature() {
-		return signature;
+	public String getHashtags() {
+		return hashtags;
 	}
 
-	public  static void setSignature(String signature) {
-		Tweet.signature = signature;
+	public  void setHashtag(String hashtag) {
+        hashtags = appendAttribute(hashtags, "#", hashtag);
 	}
+
+    public String getAt() {
+        return at;
+    }
+
+    public void setAt(String at) {
+        this.at = appendAttribute(this.at, "@", at);
+    }
+
+    private String appendAttribute(String orig, String prefix, String content) {
+        if (content == null || content.length() == 0)
+            return "";
+
+        if (content.charAt(0) != '#')
+            content = prefix + content;
+
+        String result = "";
+
+        if (null == orig || orig.length() == 0)
+            result = prefix + content;
+        else
+            result += " " + prefix + content;
+
+        return result;
+    }
 	
 	private int getTextLengthShouldBe() {
 		return this.getTextLengthShouldBe(0);
 	}
 	
 	private int getTextLengthShouldBe(int i) {
-		return limit - url.length() - prefix.length() - signature.length() - i - (trimmed ? ELLIPSIS.length() : 0); 
+		return limit - url.length() - prefix.length() - hashtags.length() - i - (trimmed ? ELLIPSIS.length() : 0);
 	}
 	
 	public String toString() {
@@ -178,7 +203,7 @@ public class Tweet implements Status {
 	}
 	
 	public String create() {
-		return prefix + buffer.toString() + (trimmed ? ELLIPSIS : "") + url + signature;
+		return prefix + buffer.toString() + (trimmed ? ELLIPSIS : "") + url + hashtags;
 	}
 
 	@Override
