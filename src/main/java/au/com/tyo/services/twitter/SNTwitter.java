@@ -159,57 +159,84 @@ public class SNTwitter extends SNBase {
 //	public Status postTweet(String tweet, String url) throws TwitterException {
 //		return twitter.updateStatus(tweet);
 //	}
-	public Status postTweet(Tweet tweet) throws TwitterException  {
-		return postTweet(tweet, (String[]) null);
-	}
 	
 	public Status postTweet(Tweet tweet, String mediaUrl) throws TwitterException  {
 		return postTweet(tweet, mediaUrl != null ? new String[] {mediaUrl} : (String[]) null);
 	}
-	
+
+    /**
+     *
+     * @param tweet
+     * @param mediaUrls
+     * @return
+     * @throws TwitterException
+     */
 	public Status postTweet(Tweet tweet, String[] mediaUrls) throws TwitterException  {
-        StatusUpdate what = new StatusUpdate(tweet.getText());
-        
-        if (null == tweet.getMediaIds() && null != mediaUrls && mediaUrls.length > 0) {
-	        for (int i = 0; i < 4 && i < mediaUrls.length; ++i) {
-		        UploadedMedia media = null;
-		        String imgUrl = mediaUrls[i];
-		        String imgTitle = callback.getLastPathSegment(imgUrl);
-		        try {
-			        URL url = new URL(imgUrl);
-			        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			        connection.setDoOutput(true);
-			        InputStream is = url.openStream();
+        File[] files = null;
+
+        if (null != mediaUrls && mediaUrls.length > 0) {
+            files = new File[mediaUrls.length];
+            if (null == tweet.getMediaIds() && null != mediaUrls && mediaUrls.length > 0) {
+                for (int i = 0; i < 4 && i < mediaUrls.length; ++i) {
+                    UploadedMedia media = null;
+                    String imgUrl = mediaUrls[i];
+                    String imgTitle = callback.getLastPathSegment(imgUrl);
+                    try {
+                        URL url = new URL(imgUrl);
+                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                        connection.setDoOutput(true);
+                        InputStream is = url.openStream();
 			        
 			        /*
 			         * can't do it, it is deprecated
 			         */
-			        //what.setMedia(imgTitle, is);
-			        // media = twitter.uploadMedia(imgTitle, is);
-					media = twitter.uploadMedia(new File(imgTitle));
-		        }
-		        catch (Exception ex) {
+                        //what.setMedia(imgTitle, is);
+                        // media = twitter.uploadMedia(imgTitle, is);
+                        files[i] = new File(imgTitle);
+                    } catch (Exception ex) {
 		        	/*
 		        	 * Something wrong, but that is ok, just ignore it
 		        	 */
-		        	ex.printStackTrace();
-		        }
-		        finally {
-		        	if (null != media) {
-		        		tweet.setMediaId(media.getMediaId());
-		        	}
-		        }
-	        }
-	        
-	    }
-        
-        if (null != mediaUrls)
-        	what.setMediaIds(tweet.getMediaIds());
-  
-        return twitter.updateStatus(what);
+                        ex.printStackTrace();
+                    } finally {
+                        if (null != media) {
+                            tweet.setMediaId(media.getMediaId());
+                        }
+                    }
+                }
+
+            }
+        }
+
+        return postTweet(tweet, files);
 	}
-	
-	public boolean updateStatus(String status, String mediaUrl) {
+
+    /**
+     *
+     * @param tweet
+     * @param files
+     * @return
+     * @throws TwitterException
+     */
+	public Status postTweet(Tweet tweet, File[] files) throws TwitterException  {
+        if (null != files && files.length > 0) {
+            for (File file : files) {
+                UploadedMedia media = twitter.uploadMedia(file);
+                if (null != media)
+                    tweet.setMediaId(media.getMediaId());
+            }
+        }
+        return postTweet(tweet);
+	}
+
+    private Status postTweet(Tweet tweet) throws TwitterException {
+        StatusUpdate what = new StatusUpdate(tweet.getText());
+        if (tweet.hasMeida())
+            what.setMediaIds(tweet.getMediaIds());
+        return twitter.updateStatus(what);
+    }
+
+    public boolean updateStatus(String status, String mediaUrl) {
 		return false;
 	}
 

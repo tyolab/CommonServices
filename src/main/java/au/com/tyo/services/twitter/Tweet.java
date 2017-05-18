@@ -236,4 +236,8 @@ public class Tweet implements Status {
 	public void setMediaId(long id) {
 		mediaIds.add(id);
 	}
+
+	public boolean hasMeida() {
+		return mediaIds.size() > 0;
+	}
 }
