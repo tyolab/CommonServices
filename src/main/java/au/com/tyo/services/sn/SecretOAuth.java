@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package au.com.tyo.services;
+package au.com.tyo.services.sn;
 
 /*
  * The secret for storing the access token and token secret

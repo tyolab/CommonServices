@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package au.com.tyo.services.twitter;
+package au.com.tyo.services.sn.twitter;
 
 import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import au.com.tyo.services.Message;
-import au.com.tyo.services.SNBase;
-import au.com.tyo.services.SecretOAuth;
-import au.com.tyo.services.SocialNetwork;
-import au.com.tyo.services.UserInfo;
+import au.com.tyo.services.sn.Message;
+import au.com.tyo.services.sn.SNBase;
+import au.com.tyo.services.sn.SecretOAuth;
+import au.com.tyo.services.sn.SocialNetwork;
+import au.com.tyo.services.sn.UserInfo;
 import twitter4j.Relationship;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;

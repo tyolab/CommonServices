@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package au.com.tyo.services;
+package au.com.tyo.services.sn;
 
 import java.util.ArrayList;
 import java.util.HashMap;

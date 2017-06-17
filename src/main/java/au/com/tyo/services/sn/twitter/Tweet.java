@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package au.com.tyo.services.twitter;
+package au.com.tyo.services.sn.twitter;
 
 import java.util.ArrayList;
 
-import au.com.tyo.services.Status;
+import au.com.tyo.services.sn.Status;
 
 public class Tweet implements Status {
 	

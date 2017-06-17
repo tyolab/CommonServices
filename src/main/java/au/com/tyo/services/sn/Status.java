@@ -14,12 +14,27 @@
  * limitations under the License.
  */
 
-package au.com.tyo.services;
+package au.com.tyo.services.sn;
 
-public interface OnShareToSocialNetworkListener {
+public interface Status {
 
-	void onShareToSocialNetworkError();
+	String getText();
 
-	void onShareToSocialNetworkSuccessfully(String title);
+	void shrinkToFit(int i);
+	
+	/**
+	 * Twitter specific
+	 * 
+	 * @param ids
+	 */
+	void setMediaIds(long[] ids);
+	
+	/**
+	 * Twitter specific
+	 * 
+	 * @return
+	 */
+	long[] getMediaIds();
 
+	void setMediaId(long id);
 }

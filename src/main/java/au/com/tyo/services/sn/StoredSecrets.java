@@ -14,8 +14,28 @@
  * limitations under the License.
  */
 
-package au.com.tyo.services;
+package au.com.tyo.services.sn;
 
-public interface SocialNetworkListener {
-	public void onLogoutFinished(int type);
+public abstract class StoredSecrets extends Secrets {
+	
+	public static final String PREF_STORED_SECRET_TYPES = "pref_sn4j_stored_secret_types";
+	
+	protected int[] types;
+	
+	public StoredSecrets() {
+		super();
+		
+		types = SocialNetworkConstants.SUPPORTED_SOCIAL_NETWORKS;
+	}
+	
+	protected String typesToString() {
+		StringBuffer sb = new StringBuffer();
+		if (types.length > 0) {
+			sb.append(types[0]);
+			for (int i = 1; i < types.length; ++i) 
+				sb.append("," + types[i]);
+		}
+		return sb.toString();
+	}
+
 }

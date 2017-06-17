@@ -14,29 +14,8 @@
  * limitations under the License.
  */
 
-package au.com.tyo.services;
+package au.com.tyo.services.sn;
 
-public interface Secret {
-
-	int getType();
-
-	String buildKey();
-
-	void setToken(String string);
-
-	void setSecret(String string);
-
-	void setType(int int1);
-
-	void setTypeAuth(int int1);
-
-	String getToken();
-
-	String getSecret();
-
-	int getTypeAuth();
-	
-	boolean isBlank();
-
-//	Secret createSecret(int type, String token, String secretStr);
+public interface SocialNetworkListener {
+	public void onLogoutFinished(int type);
 }

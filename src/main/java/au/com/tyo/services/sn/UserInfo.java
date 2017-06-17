@@ -14,27 +14,30 @@
  * limitations under the License.
  */
 
-package au.com.tyo.services;
+package au.com.tyo.services.sn;
 
-public interface Status {
-
-	String getText();
-
-	void shrinkToFit(int i);
+/*
+ * although user info is not considered secret, but we use it for caching the user id and image 
+ */
+public class UserInfo extends SecretBase {
 	
-	/**
-	 * Twitter specific
-	 * 
-	 * @param ids
-	 */
-	void setMediaIds(long[] ids);
-	
-	/**
-	 * Twitter specific
-	 * 
-	 * @return
-	 */
-	long[] getMediaIds();
+	public UserInfo(int type, int subType) {
+		super(type, subType);
+	}
 
-	void setMediaId(long id);
+	public String getName() {
+		return this.getToken();
+	}
+	
+	public String getBase64EncodedImage() {
+		return this.getSecret();
+	}
+
+	public void setName(String userName) {
+		this.setToken(userName);
+	}
+	
+	public void setBase64EncodedImage(String encodedImage) {
+		this.setSecret(encodedImage);
+	}
 }

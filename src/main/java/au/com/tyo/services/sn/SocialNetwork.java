@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package au.com.tyo.services;
+package au.com.tyo.services.sn;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import au.com.tyo.services.twitter.SNTwitter;
+import au.com.tyo.services.sn.twitter.SNTwitter;
 
 public class SocialNetwork implements SocialNetworkConstants {
 	

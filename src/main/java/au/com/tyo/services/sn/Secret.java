@@ -14,30 +14,29 @@
  * limitations under the License.
  */
 
-package au.com.tyo.services;
+package au.com.tyo.services.sn;
 
-/*
- * although user info is not considered secret, but we use it for caching the user id and image 
- */
-public class UserInfo extends SecretBase {
-	
-	public UserInfo(int type, int subType) {
-		super(type, subType);
-	}
+public interface Secret {
 
-	public String getName() {
-		return this.getToken();
-	}
-	
-	public String getBase64EncodedImage() {
-		return this.getSecret();
-	}
+	int getType();
 
-	public void setName(String userName) {
-		this.setToken(userName);
-	}
+	String buildKey();
+
+	void setToken(String string);
+
+	void setSecret(String string);
+
+	void setType(int int1);
+
+	void setTypeAuth(int int1);
+
+	String getToken();
+
+	String getSecret();
+
+	int getTypeAuth();
 	
-	public void setBase64EncodedImage(String encodedImage) {
-		this.setSecret(encodedImage);
-	}
+	boolean isBlank();
+
+//	Secret createSecret(int type, String token, String secretStr);
 }
