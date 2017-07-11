@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import au.com.tyo.io.IO;
 import au.com.tyo.services.sn.Message;
 import au.com.tyo.services.sn.SNBase;
 import au.com.tyo.services.sn.SecretOAuth;
@@ -191,17 +192,15 @@ public class SNTwitter extends SNBase {
 			         * can't do it, it is deprecated
 			         */
                         //what.setMedia(imgTitle, is);
-                        // media = twitter.uploadMedia(imgTitle, is);
-                        files[i] = new File(imgTitle);
+
+                        files[i] = new File(imgTitle + i);
+                        IO.writeFile(files[i], is);
+                        //media = twitter.uploadMedia(files[i]);
                     } catch (Exception ex) {
 		        	/*
 		        	 * Something wrong, but that is ok, just ignore it
 		        	 */
                         ex.printStackTrace();
-                    } finally {
-                        if (null != media) {
-                            tweet.setMediaId(media.getMediaId());
-                        }
                     }
                 }
 
@@ -271,7 +270,7 @@ public class SNTwitter extends SNBase {
 	@Override
 	public void postStatus(Message msg) throws Exception {
 		Tweet tweet = (Tweet) msg.getStatus();
-		postTweet(tweet, msg.getImageUrl());
+		postTweet(tweet, msg.getMediaFiles());
 	}
 	
 	@Override

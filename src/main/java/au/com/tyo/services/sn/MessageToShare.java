@@ -16,6 +16,8 @@
 
 package au.com.tyo.services.sn;
 
+import java.io.File;
+
 public class MessageToShare implements Message {
 	
 	private String title;
@@ -25,6 +27,8 @@ public class MessageToShare implements Message {
 	private String url;
 	
 	private String imageUrl;
+
+	private File[] mediaFiles;
 	
 	private int snToShare; // social network to share to
 	
@@ -94,4 +98,12 @@ public class MessageToShare implements Message {
 		this.setImageUrl(null);
 	}
 
+	@Override
+	public File[] getMediaFiles() {
+		return mediaFiles;
+	}
+
+	public void setMediaFiles(File[] mediaFiles) {
+		this.mediaFiles = mediaFiles;
+	}
 }

@@ -16,6 +16,8 @@
 
 package au.com.tyo.services.sn;
 
+import java.io.File;
+
 public interface Message {
 	
 	String getTitle();
@@ -35,4 +37,6 @@ public interface Message {
 	String getUrl();
 
 	void removeImageUrl();
+
+	File[] getMediaFiles();
 }

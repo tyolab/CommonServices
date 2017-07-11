@@ -19,6 +19,7 @@ package au.com.tyo.services.sn;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 import au.com.tyo.services.Http;
@@ -106,6 +107,11 @@ public class Callback {
 		return url.substring(url.lastIndexOf('/'));
 	}
 
+    /**
+     *
+     * @param query
+     * @return
+     */
 	public String getQueryParameter(String query) {
 		if (parameters == null) {
 			try {
@@ -121,6 +127,18 @@ public class Callback {
 			return parameters.get(query);
 
 		return null;
+	}
+
+    /**
+     *
+     * @param param
+     * @param value
+     */
+	public void setQueryParameter(String param, String value) {
+		if (null != parameters)
+			parameters = new HashMap<>();
+
+		parameters.put(param, value);
 	}
 
 	public String getHomeUrl() {
