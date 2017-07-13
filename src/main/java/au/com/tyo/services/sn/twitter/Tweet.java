@@ -55,6 +55,7 @@ public class Tweet implements Status {
 		mediaIds = new ArrayList<Long>();
         hashtags = null;
         at = null;
+		hashtags = "";
 	}
 	
 	public Tweet(String text) {
