@@ -18,8 +18,10 @@ package au.com.tyo.services.sn;
 
 public interface SocialNetworkListener {
 
-	void onAuthenticatd();
+	void onAuthenticated();
 
 	void onLogoutFinished(int type);
+
+	void onAppAuthorized(int type);
 
 }

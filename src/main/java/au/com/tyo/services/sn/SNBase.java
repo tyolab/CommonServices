@@ -208,6 +208,7 @@ public abstract class SNBase {
 		
 		authenticated = false;
 		
-		if (listener != null) listener.onLogoutFinished(this.getType());
+		if (listener != null)
+			listener.onLogoutFinished(this.getType());
 	}
 }
