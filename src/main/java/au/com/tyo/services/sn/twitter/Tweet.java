@@ -83,6 +83,10 @@ public class Tweet implements Status {
 	public static void setLimit(int limit) {
 		Tweet.limit = limit;
 	}
+
+	public void append(String what) {
+        appendOrNot(what);
+    }
 	
 	public void appendOrNot(String what) {
 		appendOrNot(what, " ");
@@ -92,6 +96,10 @@ public class Tweet implements Status {
 		if (buffer.length() + what.length() <= getLimit())
 			buffer.append(prefix + what);
 	}
+
+	public void insert(String what) {
+        insertOrNot(what);
+    }
 	
 	public void insertOrNot(String what) {
 		insertOrNot(what, " ");
@@ -171,15 +179,12 @@ public class Tweet implements Status {
         if (content == null || content.length() == 0)
             return "";
 
-        if (content.charAt(0) != '#')
-            content = prefix + content;
-
         String result = "";
 
         if (null == orig || orig.length() == 0)
             result = prefix + content;
         else
-            result += " " + prefix + content;
+            result = orig + " " + prefix + content;
 
         return result;
     }
@@ -194,8 +199,12 @@ public class Tweet implements Status {
 	
 	public String toString() {
 		String tweet = create();
-		
-		if (tweet.length() > limit) {
+        int realLimit = limit;
+
+        if (null != url)
+            realLimit = limit - 23;
+
+		if (tweet.length() > realLimit) {
 			trimmed = true;
 			this.shrinkToFit();
 			tweet = create();
@@ -204,7 +213,7 @@ public class Tweet implements Status {
 	}
 	
 	public String create() {
-		return prefix + buffer.toString() + (trimmed ? ELLIPSIS : "") + url + hashtags;
+		return buffer.toString() + (trimmed ? ELLIPSIS : ""); // + url + hashtags;
 	}
 
 	@Override
@@ -238,7 +247,7 @@ public class Tweet implements Status {
 		mediaIds.add(id);
 	}
 
-	public boolean hasMeida() {
+	public boolean hasMedia() {
 		return mediaIds.size() > 0;
 	}
 }

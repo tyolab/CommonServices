@@ -230,7 +230,7 @@ public class SNTwitter extends SNBase {
 
     private Status postTweet(Tweet tweet) throws TwitterException {
         StatusUpdate what = new StatusUpdate(tweet.getText());
-        if (tweet.hasMeida())
+        if (tweet.hasMedia())
             what.setMediaIds(tweet.getMediaIds());
         return twitter.updateStatus(what);
     }
