@@ -46,7 +46,13 @@ public class SNTwitter extends SNBase {
 	public static final String REQUEST_TOKEN_URL = "https://api.twitter.com/oauth/request_token"; 
 	public static final String ACCESS_TOKEN_URL = "https://api.twitter.com/oauth/access_token";
 	public static final String AUTHORIZE_URL = "https://api.twitter.com/oauth/authorize";
-	
+
+    private static TwitterFactory factory;
+
+    static {
+        factory = new TwitterFactory();
+    }
+
 	private Twitter twitter;
 
 	private RequestToken requestToken;
@@ -131,14 +137,15 @@ public class SNTwitter extends SNBase {
 	}
 
 	public void getAppAuthorized(String consumerKey, String consumerKeySecret) throws TwitterException {
-		twitter = TwitterFactory.getSingleton();
+		twitter = factory.getInstance();
 		try {
 		    twitter.setOAuthConsumer(consumerKey, consumerKeySecret);
 		}
 		catch (Exception ex) {
 			// the consumerkey and consumerKeySecret may have been already set 
 		}
-	    requestToken = twitter.getOAuthRequestToken(getCallback().toString());
+		String callbackUrl = getCallback().toString();
+	    requestToken = twitter.getOAuthRequestToken(callbackUrl);
 	    
 	    openAuthorizationURL(requestToken.getAuthorizationURL());
 	}
