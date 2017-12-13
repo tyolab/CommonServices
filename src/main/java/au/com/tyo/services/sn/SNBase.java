@@ -211,4 +211,12 @@ public abstract class SNBase {
 		if (listener != null)
 			listener.onLogoutFinished(this.getType());
 	}
+
+	public String getConsumerKey() {
+		return consumerKey;
+	}
+
+	public String getConsumerKeySecret() {
+		return consumerKeySecret;
+	}
 }
