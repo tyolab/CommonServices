@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import au.com.tyo.services.Http;
+import au.com.tyo.services.HttpJavaNet;
 
 public class Callback {
 	
@@ -115,7 +115,7 @@ public class Callback {
 	public String getQueryParameter(String query) {
 		if (parameters == null) {
 			try {
-				parameters = Http.toQueryParameters(new URL(getUrl()));
+				parameters = HttpJavaNet.toQueryParameters(new URL(getUrl()));
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			} catch (MalformedURLException e) {
