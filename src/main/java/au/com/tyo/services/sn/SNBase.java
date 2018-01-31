@@ -140,7 +140,7 @@ public abstract class SNBase {
 		}
 	}
 
-	public void saveAuthSecrets() {
+	public void saveAuthSecret() {
 		secrets.save(secretOAuth.getToken());
 		secrets.save(secretOAuth.getId());
 	}
@@ -193,20 +193,7 @@ public abstract class SNBase {
 	public abstract void createInstance();
 
 	public void logout() {
-		userInfo.setToken("");
-		userInfo.setSecret("");
-		alias.setToken("");
-		alias.setSecret("");
-		secretOAuth.getId().setToken("");
-		secretOAuth.getId().setSecret("");
-		secretOAuth.getToken().setToken("");
-		secretOAuth.getToken().setSecret("");
-		
-		saveAuthSecrets();
-		saveUserInfo();
-		saveAlias();
-		
-		authenticated = false;
+		clearSecret();
 		
 		if (listener != null)
 			listener.onLogoutFinished(this.getType());
@@ -218,5 +205,25 @@ public abstract class SNBase {
 
 	public String getConsumerKeySecret() {
 		return consumerKeySecret;
+	}
+
+	public void clearSecret() {
+		authenticated = false;
+
+		consumerKey = "";
+		consumerKeySecret = "";
+
+		userInfo.setToken("");
+		userInfo.setSecret("");
+		alias.setToken("");
+		alias.setSecret("");
+		secretOAuth.getId().setToken("");
+		secretOAuth.getId().setSecret("");
+		secretOAuth.getToken().setToken("");
+		secretOAuth.getToken().setSecret("");
+
+		saveAuthSecret();
+		saveUserInfo();
+		saveAlias();
 	}
 }
