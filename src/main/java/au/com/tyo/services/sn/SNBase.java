@@ -133,11 +133,9 @@ public abstract class SNBase {
 	}
 
 	public void loadSecretsFromSafe() {
-		if (secrets != null) {
-			secrets.load(secretOAuth.getId());
-			secrets.load(secretOAuth.getToken());
-			secrets.load(userInfo);
-		}
+        secrets.load(secretOAuth.getId());
+        secrets.load(secretOAuth.getToken());
+        secrets.load(userInfo);
 	}
 
 	public void saveAuthSecret() {
@@ -226,4 +224,18 @@ public abstract class SNBase {
 		saveUserInfo();
 		saveAlias();
 	}
+
+	public void setConsumerKeyPair(String consumerKey, String consumerSecret) {
+        this.consumerKey = consumerKey;
+        this.consumerKeySecret = consumerSecret;
+    }
+
+    public void saveConsumerKeyPair(String consumerKey, String consumerSecret) {
+		setConsumerKeyPair(consumerKey, consumerSecret);
+
+		secretOAuth.getToken().setToken(this.consumerKey);
+		secretOAuth.getToken().setSecret(this.consumerKeySecret);
+
+		saveAuthSecret();
+    }
 }
