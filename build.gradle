@@ -11,9 +11,11 @@ apply plugin: 'java'
 
 dependencies {
 
-    compile 'org.twitter4j:twitter4j-core:4.0.2'
+    implementation group: 'org.json', name: 'json', version: '20180130'
 
-    compile project (':CommonUtils');
+    implementation 'org.twitter4j:twitter4j-core:4.0.2'
+
+    implementation project (':CommonUtils');
 }
 
 sourceCompatibility = "1.8"
