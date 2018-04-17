@@ -16,7 +16,7 @@
 
 package au.com.tyo.services.sn;
 
-public interface SocialNetworkConstants {
+public class SocialNetworkConstants {
 	
 	public static final int ANY = 0;
 	

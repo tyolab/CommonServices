@@ -24,7 +24,7 @@ import java.util.Map;
 
 import au.com.tyo.services.sn.twitter.SNTwitter;
 
-public class SocialNetwork implements SocialNetworkConstants {
+public class SocialNetwork extends SocialNetworkConstants {
 	
 //	private SNTwitter twitter;
 	public static final Map<Integer, String> SOCIAL_NETWORKS;
