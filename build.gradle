@@ -11,9 +11,9 @@ apply plugin: 'java'
 
 dependencies {
 
-    implementation group: 'org.json', name: 'json', version: '20180130'
+    implementation group: 'org.json', name: 'json', version: '20200518'
 
-    implementation 'org.twitter4j:twitter4j-core:4.+'
+    implementation 'org.twitter4j:twitter4j-core:4.0.7'
 
     implementation project (':CommonUtils');
 }
