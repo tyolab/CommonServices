@@ -16,4 +16,16 @@
 #   public *;
 #}
 
+-keep public class twitter4j.** {
+    public protected private *;
+}
+
+-keep class twitter4j.** { *; }
+-keep interface twitter4j.** { *; }
+
 -dontobfuscate
+-dontoptimize
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontpreverify
+-verbose
